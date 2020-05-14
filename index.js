@@ -1,9 +1,16 @@
 const express = require('express');
-const app = express();
+require('./services/passport');
 
-app.get('/', (req, res) => {
-    res.send({hey: "there"});
-});
+const app = express();
+//const authRoutes = require('./routes/authRouts'); istead of this
+//authRoutes(app); and that we just can do 
+//require('./routes/authRouts')(app)
+require('./routes/authRouts')(app);
+
+
+
+
+
 
 const PORT = process.env.PORT || 8080;
 
