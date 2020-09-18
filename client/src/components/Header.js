@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+
 
 class Header extends Component {
     render() {
+        console.log(this.props);
         return (
             <nav>
                 <div className="nav-wrapper">
-                <a href="#" class="left brand-logo">ShinyOctoEmaily</a>
+                <Link to="#" class="left brand-logo">ShinyOctoEmaily</Link>
                 <ul className="right">
-                    <li><a >Login with google</a></li>
+                    <li><Link to="#">Login with google</Link></li>
                 </ul>
                 </div>
              </nav>
@@ -15,4 +19,8 @@ class Header extends Component {
     }
 }
 
-export default Header;
+function mapStateToProps({ auth }) {
+    return { auth };
+}
+
+export default connect(mapStateToProps) (Header);
