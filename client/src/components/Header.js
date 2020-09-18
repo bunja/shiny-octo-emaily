@@ -4,14 +4,25 @@ import { connect } from 'react-redux';
 
 
 class Header extends Component {
+    renderContent(){
+        switch(this.props.auth) {
+            case null:
+                return "loading";
+            case false:
+                return "NOT LOGGED IN";
+            default:
+                return "YOU ARE LOGGED IN";
+        }
+    }
     render() {
-        console.log(this.props);
+        
         return (
             <nav>
                 <div className="nav-wrapper">
                 <Link to="#" class="left brand-logo">ShinyOctoEmaily</Link>
                 <ul className="right">
-                    <li><Link to="#">Login with google</Link></li>
+                    { this.renderContent()}
+                    
                 </ul>
                 </div>
              </nav>
