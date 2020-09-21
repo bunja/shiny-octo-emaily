@@ -7,11 +7,13 @@ class Header extends Component {
     renderContent(){
         switch(this.props.auth) {
             case null:
-                return "loading";
+                return;
             case false:
-                return "NOT LOGGED IN";
+                return (
+                    <li><a href="/auth/google">Login with Google</a></li>
+                );
             default:
-                return "YOU ARE LOGGED IN";
+                return <li><a href="/api/logout">Logout</a></li>;
         }
     }
     render() {
@@ -19,7 +21,12 @@ class Header extends Component {
         return (
             <nav>
                 <div className="nav-wrapper">
-                <Link to="#" class="left brand-logo">ShinyOctoEmaily</Link>
+                <Link 
+                    to={this.props.auth ? '/surveys' : '/'} 
+                    className="left brand-logo"
+                    >
+                        ShinyOctoEmaily
+                    </Link>
                 <ul className="right">
                     { this.renderContent()}
                     
