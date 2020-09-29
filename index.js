@@ -34,6 +34,6 @@ require('./routes/billingRouts')(app);
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(8080, function() {
-    console.log("port 8080 I'm listening.");
+app.listen(PORT, function() {
+    console.log(`server is running on port ${PORT}`);
 });
