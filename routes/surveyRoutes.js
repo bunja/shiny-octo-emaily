@@ -16,18 +16,24 @@ module.exports = app => {
     });
 
     app.post('/api/surveys/webhooks', (req,res) => {
-        const events = _.map(req.body, (event) => {
-            const pathname = new URL(event.url).pathname;
+        const events = _.map(req.body, ({email, url}) => {
+            const pathname = new URL(url).pathname;
             const p = new Path('/api/surveys/:surveyId/:choice');
-            const maych = p.test(pathname);
+            const match = p.test(pathname);// will return obj with surveyId and cgoice or null
             if (match) {
                 return {
-                    email: event.email,
-                    surveyId: match.surveyId,
+                    email,
+                    surveyId: match.surveyId,// no destructuring 
                     choice: match.choice
                 };
             }
         });
+        const compactEvents = _.compact(events);
+        const uniqueEvents = _.uniqBy(compactEvents, 'email', 'surveyId');
+
+        console.log(uniqueEvents);
+
+        res.send({});
     })
 
     app.post('/api/surveys',requireLogin, requireCredits, async (req,res) => {
