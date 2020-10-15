@@ -19,7 +19,14 @@ module.exports = app => {
         const events = _.map(req.body, (event) => {
             const pathname = new URL(event.url).pathname;
             const p = new Path('/api/surveys/:surveyId/:choice');
-            console.log(p.test(pathname));
+            const maych = p.test(pathname);
+            if (match) {
+                return {
+                    email: event.email,
+                    surveyId: match.surveyId,
+                    choice: match.choice
+                };
+            }
         });
     })
 
